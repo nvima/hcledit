@@ -21,6 +21,14 @@ jobs:
         name: Set up Go
         uses: actions/setup-go@v3
       -
+        name: Install Dependencies
+        run: |
+          go mod tidy
+          go mod download
+
+      - name: Run Tests
+        run: go test -v ./...
+      -
         name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v4
         with:
@@ -29,14 +37,14 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      -
-        name: Push a package to Octopus Deploy 🐙
-        uses: OctopusDeploy/push-package-action@v3
-        env:
-          OCTOPUS_URL: ${{ secrets.OCTOPUS_SERVER }}
-          OCTOPUS_API_KEY: ${{ secrets.OCTOPUS_API_KEY }}
-          OCTOPUS_SPACE: 'Default'
-        with:
-          packages: |
-            dist/hcledit_Linux_x86_64.tar.gz
+      # -
+      #   name: Push a package to Octopus Deploy 🐙
+      #   uses: OctopusDeploy/push-package-action@v3
+      #   env:
+      #     OCTOPUS_URL: ${{ secrets.OCTOPUS_SERVER }}
+      #     OCTOPUS_API_KEY: ${{ secrets.OCTOPUS_API_KEY }}
+      #     OCTOPUS_SPACE: 'Default'
+      #   with:
+      #     packages: |
+      #       dist/hcledit_Linux_x86_64.tar.gz
 
