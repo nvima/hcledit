@@ -26,11 +26,11 @@ jobs:
         with:
           distribution: goreleaser
           version: latest
-          args: release
+          args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - uses: actions/checkout@v3
+      - 
+        uses: actions/checkout@v3
 
       - name: Push a package to Octopus Deploy 🐙
         uses: OctopusDeploy/push-package-action@v3
