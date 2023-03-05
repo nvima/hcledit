@@ -26,7 +26,19 @@ jobs:
         with:
           distribution: goreleaser
           version: latest
-          args: release --clean
+          args: release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Push a package to Octopus Deploy 🐙
+        uses: OctopusDeploy/push-package-action@v3
+        env:
+          OCTOPUS_URL: ${{ secrets.OCTOPUS_SERVER }}
+          OCTOPUS_API_KEY: ${{ secrets.OCTOPUS_API_KEY }}
+          OCTOPUS_SPACE: 'Default'
+        with:
+          packages: |
+            dist/hcledit_Linux_x86_64.tar.gz
 
