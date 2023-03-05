@@ -29,10 +29,8 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - 
-        uses: actions/checkout@v3
-
-      - name: Push a package to Octopus Deploy 🐙
+      -
+        name: Push a package to Octopus Deploy 🐙
         uses: OctopusDeploy/push-package-action@v3
         env:
           OCTOPUS_URL: ${{ secrets.OCTOPUS_SERVER }}
