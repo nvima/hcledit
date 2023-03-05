@@ -29,7 +29,6 @@ func TestRunTemplateBlockUpsertCmd(t *testing.T) {
 	// Test case where input contains a template block with the same destination
 	t.Run("edit templateblock with stdin", func(t *testing.T) {
 		input := `
-
 auto_auth {
   method "aws" {
     mount_path = "auth/aws"
