@@ -24,11 +24,3 @@ jobs:
 
     - name: Run Tests
       run: go test -v ./...
-
-    - name: Set Build Status
-      if: always()
-      uses: juliogallegos/github-status-action@v1.1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        state: ${{ job.status }}
-        description: ${{ job.status }}
