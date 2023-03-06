@@ -1,9 +1,10 @@
 name: goreleaser
 
-on:
-  push:
-    tags:
-      - "*"
+on: [push]
+# on:
+#   push:
+#     tags:
+#       - "*"
 
 permissions:
   contents: write
@@ -29,14 +30,19 @@ jobs:
       - name: Run Tests
         run: go test -v ./...
       -
-        name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v4
-        with:
-          distribution: goreleaser
-          version: latest
-          args: release --clean
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        name: GitHub Tag Name example
+        run: |
+          echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
+          echo "Tag name from github.ref_name: ${{  github.ref_name }}"
+      # -
+      #   name: Run GoReleaser
+      #   uses: goreleaser/goreleaser-action@v4
+      #   with:
+      #     distribution: goreleaser
+      #     version: latest
+      #     args: release --clean
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # -
       #   name: Push a package to Octopus Deploy 🐙
       #   uses: OctopusDeploy/push-package-action@v3
@@ -47,4 +53,15 @@ jobs:
       #   with:
       #     packages: |
       #       dist/hcledit_Linux_x86_64.tar.gz
+      #
+      # - name: Push build information to Octopus Deploy 🐙
+      #   uses: OctopusDeploy/push-build-information-action@v3
+      #   env:
+      #     OCTOPUS_URL: ${{ secrets.OCTOPUS_URL }}
+      #     OCTOPUS_API_KEY: ${{ secrets.OCTOPUS_API_KEY }}
+      #     OCTOPUS_SPACE: '<spacename>'
+      #   with:
+      #     packages: |
+      #       '<packageId1>'
+      #     version: '<versionofpackages>'
 
